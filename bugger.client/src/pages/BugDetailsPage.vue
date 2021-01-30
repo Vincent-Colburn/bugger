@@ -111,6 +111,8 @@ export default {
         // console.log('this is your new inner text', e)
         if (state.bug.closed === false) {
           bugService.editBug(state.bug, e.target.innerText)
+        } else {
+          alert('I cant let you do that, Star fox!')
         }
       },
 

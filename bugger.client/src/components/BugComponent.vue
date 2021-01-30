@@ -2,7 +2,8 @@
   <div class="col-12">
     <router-link :to="{ name: 'BugDetailsPage', params: { id: bugProps.id}}" class="words">
       <div class="col-12 bug-component">
-        <span>Bug: <b> {{ bugProps.title }} </b> </span> <span> Reported By: {{ bugProps.creatorEmail }}</span> <span> {{ bugProps.closed }} </span>
+        <span>Bug: <b> {{ bugProps.title }} </b> </span> <span> Reported By: {{ bugProps.creatorEmail }}</span> <span> Status: {{ bugProps.closed }}   <span></span>
+        </span>
       </div>
     </router-link>
   </div>
@@ -35,6 +36,13 @@ export default {
           logger.error(error)
         }
       }
+      // changeColor(bugProps) {
+      //   if (props.bugsProps.closed === true) {
+      //     color = text-danger
+      //   } else {
+      //     console.log('do somethign else')
+      //   }
+      // }
     }
   }
 }
