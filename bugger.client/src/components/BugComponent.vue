@@ -2,8 +2,9 @@
   <div class="col-12">
     <router-link :to="{ name: 'BugDetailsPage', params: { id: bugProps.id}}" class="words">
       <div class="col-12 bug-component">
-        <span>Bug: <b> {{ bugProps.title }} </b> </span> <span> Reported By: {{ bugProps.creatorEmail }}</span> <span> Status: {{ bugProps.closed }}   <span></span>
-        </span>
+        <span><b>Bug:</b> {{ bugProps.title }}  </span> <span> <b>Reported By:</b> {{ bugProps.creatorEmail }}</span>
+        <span :class="getClass()"> Status: {{ bugProps.closed }} </span>
+        <span><b>Last Updated</b> :  {{ new Date(bugProps.updatedAt).toString(Intl.DateTimeFormat.prototype.formatToParts) }} </span>
       </div>
     </router-link>
   </div>
@@ -23,26 +24,24 @@ export default {
   setup(props) {
     const state = reactive({
       account: computed(() => AppState.account),
-      bugs: computed(() => AppState.bugs)
+      bugs: computed(() => AppState.bugs.filter(b => b.closed === true))
 
     })
     return {
       state,
-
-      closeBoard(bugProps) {
+      async closeBoard(bugProps) {
         try {
-          bugServivce.closeBoard(props.bugProps.id)
+          await bugServivce.closeBoard(props.bugProps.id)
         } catch (error) {
           logger.error(error)
         }
+      },
+      getClass(bugProps) {
+        return {
+          'text-success': props.bugProps.closed,
+          'text-danger': !props.bugProps.closed
+        }
       }
-      // changeColor(bugProps) {
-      //   if (props.bugsProps.closed === true) {
-      //     color = text-danger
-      //   } else {
-      //     console.log('do somethign else')
-      //   }
-      // }
     }
   }
 }

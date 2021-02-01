@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid BoardDetailsPage">
     <div class="col-12">
-      <span>Title</span> <span> <b>Close Ticket</b> </span><i class="fa fa-times-circle" aria-hidden="true" v-if="state.account.email == bug.creatorEmail" @click="closeBug"></i>
-      <h1> Status: {{ state.bug.closed }} </h1>
+      <span>Title</span> <i class="fa fa-times-circle" aria-hidden="true" v-if="state.account.email == bug.creatorEmail && bug.closed === false" @click="closeBug">Close Bug</i>
+      <h1> Status is Closed: {{ state.bug.closed }} </h1>
       <h1 :contenteditable="state.editBug" @blur="editBug">
         {{ state.bug.title }}  <i class="fa fa-pencil border mx-2" aria-hidden="true" v-if="state.account.email == bug.creatorEmail" @click="state.editBug = !state.editBug, editBug(e)"></i>
       </h1>
@@ -51,7 +51,8 @@ import { logger } from '../utils/Logger'
 export default {
   name: 'BugDetailspage',
   props: {
-    bugProps: { type: Object, required: true }
+    bugProps: { type: Object, required: true },
+    noteProps: { type: Object, required: true }
   },
   setup(props) {
     const route = useRoute()
@@ -81,13 +82,14 @@ export default {
     return {
       state,
       bug: computed(() => AppState.activeBug),
-      notes: computed(() => AppState.notes),
+      notes: computed(() => AppState.notes.filter(n => n.bug === route.params.id)),
       async createNote() {
         try {
           const bug = route.params.id
           const creatorEmail = state.account.email
           const content = state.newNote.content
           const newNote = { content, bug, creatorEmail }
+          console.log('should be the bug id', bug)
           noteService.createNote(newNote)
           state.newNote.content = ''
         } catch (error) {

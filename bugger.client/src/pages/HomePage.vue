@@ -37,6 +37,29 @@
     <div class="row">
     </div>
     <div class="row">
+      <!-- <div class="dropdown open">
+        <button class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="triggerId"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+        >
+          Dropdown
+        </button>
+        <div class="dropdown-menu" aria-labelledby="triggerId">
+          <button class="dropdown-item" @click="filterBugs(false)" href="#">
+            Open
+          </button>
+          <button class="dropdown-item" @click="closedBugs" href="#">
+            Closed
+          </button>
+        </div>
+      </div> -->
+      <p> Filter by: </p>
+      <br>
+      <!-- <input type="checkbox" v-model="true"> -->
+      <i class="fa fa-filter text-secondary" @click="filterBugs" aria-hidden="true">Filter by Status</i>
       <BugComponent v-for="bug in bugs" :key="bug.id" :bug-props="bug" />
     </div>
   </div>
@@ -58,6 +81,7 @@ export default {
     const state = reactive({
       account: computed(() => AppState.account),
       user: computed(() => AppState.user),
+      bugs: computed(() => AppState.bugs),
       newBug: {}
     })
 
@@ -85,7 +109,25 @@ export default {
         } catch (error) {
           logger.error(error)
         }
+      },
+
+      closedBugs() {
+        const closedBugs = computed(() => AppState.lists.filter(b => b.closed === true))
+        console.log(closedBugs)
+        return closedBugs
       }
+      // filterBugs(choice) {
+      //   console.log('this is the choice', choice)
+      //   const buggers = AppState.bugs
+      //   if (choice === true) {
+
+      //   }
+      //   const result = buggers.filter(buggers => buggers.closed === choice)
+      //   AppState.bugs = result
+
+      //   // wherever you're referencing to draw them, make sure you set it back to the value that you are referencing to draw them.
+      // }
+
     }
   }
 }

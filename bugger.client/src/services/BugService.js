@@ -35,10 +35,14 @@ class BugService {
   }
 
   async closeBug(bug) {
-    console.log('this is your bug in the service', bug)
-    const bugClosed = { closed: true }
-    await api.put('api/bugs/' + bug.id, bugClosed)
-    this.getBugs(bug.id)
+    // console.log('this is your bug in the service', bug)
+    if (bug.closed === false) {
+      const bugClosed = { closed: true }
+      await api.put('api/bugs/' + bug.id, bugClosed)
+      this.getBugs(bug.id)
+    } else {
+      alert('you cannot reopen bugs')
+    }
   }
 }
 
