@@ -2,9 +2,9 @@
   <div class="col-12">
     <router-link :to="{ name: 'BugDetailsPage', params: { id: bugProps.id}}" class="words">
       <div class="col-12 bug-component">
-        <span><b>Bug:</b> {{ bugProps.title }}  </span> <span> <b>Reported By:</b> {{ bugProps.creatorEmail }}</span>
-        <span :class="getClass()"> Status: {{ bugProps.closed }} </span>
-        <span><b>Last Updated</b> :  {{ new Date(bugProps.updatedAt).toString(Intl.DateTimeFormat.prototype.formatToParts) }} </span>
+        <span :class="getClass()"><b>Bug:</b> {{ bugProps.title }}   <span> <b>| Reported By:</b> {{ bugProps.creatorEmail }}</span>
+          <span> | <b>Status</b>: {{ bugProps.closed }} </span>
+          <span><b> |  Last Modified</b> :  {{ new Date(bugProps.updatedAt).toString(Intl.DateTimeFormat.prototype.formatToParts) }} </span></span>
       </div>
     </router-link>
   </div>

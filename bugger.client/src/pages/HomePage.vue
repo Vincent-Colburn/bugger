@@ -58,9 +58,12 @@
       </div> -->
       <p> Filter by: </p>
       <br>
-      <!-- <input type="checkbox" v-model="true"> -->
-      <i class="fa fa-filter text-secondary" @click="filterBugs" aria-hidden="true">Filter by Status</i>
+      <input type="checkbox" v-model="state.choice">
+      <!-- <i class="fa fa-filter text-secondary" @click="filterBugs" aria-hidden="true">Filter by Status</i> -->
+      <!-- <div class="div" v-if="bugProps.closed === true"> -->
       <BugComponent v-for="bug in bugs" :key="bug.id" :bug-props="bug" />
+      <!-- </div> -->
+    <!-- </div> -->
     </div>
   </div>
 </template>
@@ -76,13 +79,14 @@ export default {
   props: {
     bugProps: { type: Object, required: true }
   },
-  setup() {
+  setup(props) {
     const router = useRouter()
     const state = reactive({
       account: computed(() => AppState.account),
       user: computed(() => AppState.user),
       bugs: computed(() => AppState.bugs),
-      newBug: {}
+      newBug: {},
+      choice: {}
     })
 
     onMounted(async() => {

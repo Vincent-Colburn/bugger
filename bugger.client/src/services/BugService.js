@@ -16,6 +16,7 @@ class BugService {
   async createBug(bugData) {
     const res = await api.post('api/bugs', bugData)
     console.log(res.data.id)
+    return res.data.id
   }
 
   async editBug(bug, newTitle) {
