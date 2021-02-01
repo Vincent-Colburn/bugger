@@ -58,10 +58,11 @@
       </div> -->
       <p> Filter by: </p>
       <br>
-      <input type="checkbox" v-model="state.choice">
+      <!-- <input type="checkbox" v-model="state.choice.choiceT"> -->
       <!-- <i class="fa fa-filter text-secondary" @click="filterBugs" aria-hidden="true">Filter by Status</i> -->
-      <!-- <div class="div" v-if="bugProps.closed === true"> -->
+      <!-- <div class="div" v-if="state.bugs.closed === state.choice.choiceF"> -->
       <BugComponent v-for="bug in bugs" :key="bug.id" :bug-props="bug" />
+      <!-- </div> -->
       <!-- </div> -->
     <!-- </div> -->
     </div>
@@ -86,7 +87,10 @@ export default {
       user: computed(() => AppState.user),
       bugs: computed(() => AppState.bugs),
       newBug: {},
-      choice: {}
+      choice: {
+        choiceT: true,
+        choiceF: false
+      }
     })
 
     onMounted(async() => {
