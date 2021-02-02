@@ -24,6 +24,7 @@ class BugService {
     if (!updated) {
       throw new BadRequest('You are not the creator, or this is not a valid bug')
     }
+    return updated
   }
 
   async closeBug(id, bug) {
@@ -31,6 +32,7 @@ class BugService {
     if (!updated) {
       throw new BadRequest('No Bug exists with that ID')
     }
+    return updated
   }
 }
 

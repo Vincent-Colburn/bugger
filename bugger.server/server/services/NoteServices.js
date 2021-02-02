@@ -23,6 +23,7 @@ class NoteService {
     if (!updated) {
       throw new BadRequest('No Note exists with that ID')
     }
+    return updated
   }
 
   async deleteNote(id, userId) {
