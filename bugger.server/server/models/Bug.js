@@ -8,7 +8,8 @@ const Bug = new Schema(
     description: { type: String, required: true },
     title: { type: String, required: true },
     closedDate: { type: Date },
-    creatorEmail: { type: String, required: true }
+    creatorEmail: { type: String, required: true },
+    creatorId: { type: String, required: true }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
@@ -16,7 +17,7 @@ const Bug = new Schema(
 Bug.virtual('creator', {
   localField: 'creatorId',
   ref: 'Account',
-  foreignField: '_id',
+  foreignField: 'id',
   justOne: true
 })
 

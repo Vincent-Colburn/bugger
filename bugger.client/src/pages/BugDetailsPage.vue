@@ -1,10 +1,12 @@
 <template>
   <div class="container-fluid BoardDetailsPage">
     <div class="col-12">
-      <span>Title</span> <i class="fa fa-times-circle" aria-hidden="true" v-if="state.account.email == bug.creatorEmail && bug.closed === false" @click="closeBug">Close Bug</i>
+      <!-- this is what you took out of line 5 v-if="state.account.email == bug.creatorEmail && bug.closed === false" -->
+      <span>Title</span> <i class="fa fa-times-circle" aria-hidden="true" @click="closeBug">Close Bug</i>
       <h1> Status is Closed: {{ state.bug.closed }} </h1>
       <h1 :contenteditable="state.editBug" @blur="editBug">
-        {{ state.bug.title }}  <i class="fa fa-pencil border mx-2" aria-hidden="true" v-if="state.account.email == bug.creatorEmail" @click="state.editBug = !state.editBug, editBug(e)"></i>
+        <!--  v-if="state.account.email == bug.creatorEmail" -->
+        {{ state.bug.title }}  <i class="fa fa-pencil border mx-2" aria-hidden="true" @click="state.editBug = !state.editBug, editBug(e)"></i>
       </h1>
       <br>
       <p :contenteditable="state.editBugBody" @blur="editBugBody">

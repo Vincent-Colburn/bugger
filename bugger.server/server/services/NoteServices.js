@@ -18,16 +18,15 @@ class NoteService {
     return await dbContext.Notes.create(body)
   }
 
-  async editNote(id, title) {
-    const updated = await dbContext.Notes.findByIdAndUpdate(id, title, { new: true })
+  async editNote(id, note) {
+    const updated = await dbContext.Notes.findOneAndUpdate({ _id: note.id, creatorId: note.creatorId }, note, { new: true })
     if (!updated) {
       throw new BadRequest('No Note exists with that ID')
     }
   }
 
-  async deleteNote(id) {
-    const deleted = await dbContext.Notes.findByIdAndDelete(id)
-    console.log('this should be your deleted stuf', deleted)
+  async deleteNote(id, userId) {
+    await dbContext.Notes.findOneAndRemove({ _id: id, creatorId: userId })
   }
 }
 

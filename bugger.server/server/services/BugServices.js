@@ -18,8 +18,16 @@ class BugService {
     return await dbContext.Bugs.create(body)
   }
 
-  async editBug(id, title) {
-    const updated = await dbContext.Bugs.findByIdAndUpdate(id, title, { new: true })
+  async editBug(id, bug) {
+    // Cannot find by Id in order to edit. 1. owner 2. closed is false
+    const updated = await dbContext.Bugs.findOneAndUpdate({ _id: id, creatorId: bug.creatorId }, bug, { new: true })
+    if (!updated) {
+      throw new BadRequest('You are not the creator, or this is not a valid bug')
+    }
+  }
+
+  async closeBug(id, bug) {
+    const updated = await dbContext.Bugs.findOneAndUpdate({ _id: id, creatorId: bug.creatorId }, bug, { new: true })
     if (!updated) {
       throw new BadRequest('No Bug exists with that ID')
     }

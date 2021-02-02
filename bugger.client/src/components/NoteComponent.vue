@@ -2,7 +2,8 @@
   <div class="container-fluid">
     <div class="col-12 border 7px">
       <p>
-        Note by : {{ state.account.email }} <i class="fa fa-trash text-danger" v-if="state.account.email == noteProps.creatorEmail" @click="deleteNote" aria-hidden="true"></i>
+        <!-- v-if="state.account.email == noteProps.creatorEmail" -->
+        Note by : {{ state.account.email }} <i class="fa fa-trash text-danger" @click="deleteNote" aria-hidden="true"></i>
       </p>
       <p>  {{ noteProps.content }} </p>
     </div>
